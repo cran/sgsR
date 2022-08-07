@@ -9,12 +9,18 @@
 [![R-CMD-check](https://github.com/tgoodbody/sgsR/workflows/R-CMD-check/badge.svg)](https://github.com/tgoodbody/sgsR/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/tgoodbody/sgsR/branch/main/graph/badge.svg)](https://app.codecov.io/gh/tgoodbody/sgsR?branch=main)
+[![](https://cranlogs.r-pkg.org/badges/sgsR)](https://CRAN.R-project.org/package=sgsR)
 <!-- badges: end -->
 
 `sgsR` is designed to implement structurally guided sampling approaches
 for enhanced forest inventories. The package was designed to function
 using rasterized airborne laser scanning (ALS; Lidar) metrics to allow
 for stratification of forested areas based on structure.
+
+If you *aren’t* working with ALS data, any remote sensing data sets in a
+raster format (e.g. optical satellite imagery, climate data, drone-based
+products) can be used as inputs to help guide your environmental
+sampling needs.
 
 `sgsR` is being actively developed, so you may encounter bugs. If that
 happens, [please report your issue
@@ -23,8 +29,16 @@ reproducible example.
 
 ## Installation :computer:
 
-You can install the released version of `sgsR` from
-[Github](https://github.com/tgoodbody/sgsR) with:
+Install the stable version of [`sgsR`from
+CRAN](https://cran.r-project.org/package=sgsR) with:
+
+``` r
+install.packages("sgsR")
+library(sgsR)
+```
+
+Install the most recent development version of [`sgsR` from
+Github](https://github.com/tgoodbody/sgsR) with:
 
 ``` r
 install.packages("devtools")
@@ -89,6 +103,5 @@ thanks to to:
 
 ## Funding :raised_hands:
 
-Development of sgsR was made possible thanks to the financial support of
-the [Canadian Wood Fibre Centre’s Forest Innovation
-Program](https://www.nrcan.gc.ca/science-and-data/funding-partnerships/funding-opportunities/forest-sector-funding-programs/forest-innovation-program/13137).
+Development of `sgsR` was made possible thanks to the financial support
+of the Canadian Wood Fibre Centre’s Forest Innovation Program.

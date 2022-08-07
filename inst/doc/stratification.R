@@ -75,14 +75,12 @@ breaks2
 
 ## ----warning=F,message=F------------------------------------------------------
 #--- stratify on 1 metric only ---#
-
 strat_breaks(mraster = mraster$pzabove2,
              breaks = breaks,
              plot = TRUE)
 
 ## ----warning=F,message=F------------------------------------------------------
 #--- stratify on 1 metric only ---#
-
 strat_breaks(mraster = mraster$zq90,
              breaks = breaks2,
              plot = TRUE)

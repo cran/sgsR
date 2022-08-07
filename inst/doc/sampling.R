@@ -78,7 +78,6 @@ sample_strat(sraster = sraster, # input sraster
 e.sr <- extract_strata(sraster = sraster, # input sraster
                        existing = existing) # existing samples to add strata value to
 
-e.sr
 
 ## ----warning=F,message=F------------------------------------------------------
 sample_strat(sraster = sraster, # input sraster
@@ -98,6 +97,39 @@ sample_strat(sraster = sraster, # input
              include = TRUE, # include existing plots in nSamp total
              buff_outer = 200, # outer buffer - no samples further than this distance from road
              plot = TRUE) # plot
+
+## ----warning=F,message=F------------------------------------------------------
+#--- perform stratified sampling random sampling ---#
+sample_strat(sraster = sraster, # input sraster
+             method = "random", #stratified random sampling
+             nSamp = 200, # desired sample number
+             plot = TRUE) # plot
+
+## -----------------------------------------------------------------------------
+#--- perform simple random sampling ---#
+sample_nc(mraster = mraster, # input
+          nSamp = 25, # desired sample number
+          plot = TRUE)
+
+## -----------------------------------------------------------------------------
+#--- perform simple random sampling ---#
+samples <- sample_nc(mraster = mraster, # input
+                    k = 2, # number of nearest neighbours to take for each kmeans center
+                    nSamp = 25, # desired sample number
+                    plot = TRUE)
+
+#--- total samples = nSamp * k (25 * 2) = 50 ---#
+nrow(samples)
+
+## -----------------------------------------------------------------------------
+#--- perform simple random sampling with details ---#
+details <- sample_nc(mraster = mraster, # input
+                     nSamp = 25, # desired sample number
+                     details = TRUE)
+
+#--- plot ggplot output ---#
+
+details$kplot
 
 ## ----eval = FALSE-------------------------------------------------------------
 #  sample_clhs(mraster = mraster, # input
