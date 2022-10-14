@@ -1,3 +1,19 @@
+# sgsR 1.3.1
+
+`fixed` - `sample_systematic()` added random translation to sampling grid to ensure unbiased sampling.
+
+# sgsR 1.3.0
+
+`new` - `sample_existing()` has been added. This algorithm sub-samples and `existing` sample using internal latin hypercube sampling. Constraints in the form of the `cost` parameter akin to `sample_clhs()` exist. Sub-sampling can be performed on `existing` samples alone, or using population level `mraster` distributions.
+
+`new` - `mask_existing()` - internal function for masking `exising` samples using `access` buffers.
+
+# sgsR 1.2.1
+
+`fixed` - `sample_systematic()` bug where `cellsize` values that caused no samples to intersect with the raster would cause `extract_metrics()` to provide an error about existing not having any samples. Added a check for intersection and corresponding error message.
+
+`enhancement` - Added `quiet` to `extract_metrics()` & `extract_strata()` to allow internal use without messages.
+
 # sgsR 1.2.0
 
 * `fixed` - `strat_kmeans()` bug related to `terra` where the re-assignment of values to the output raster was causing issues. R Hijmans kindly suggested the edit made.

@@ -60,7 +60,7 @@ to offset grid by providing lower left coordinates.}
 An sf object with sampled points over a tessellation.
 }
 \description{
-Systematic sampling within a square or hexagonal tessellation.
+Systematic sampling with random start point and rotation within a square or hexagonal tessellation.
 }
 \note{
 Specifying \code{location = "random"} can result in tessellations with no samples.
@@ -105,11 +105,12 @@ Other sample functions:
 \code{\link{sample_ahels}()},
 \code{\link{sample_balanced}()},
 \code{\link{sample_clhs}()},
+\code{\link{sample_existing}()},
 \code{\link{sample_nc}()},
 \code{\link{sample_srs}()},
 \code{\link{sample_strat}()}
 }
 \author{
-Tristan R.H. Goodbody
+Tristan R.H. Goodbody, Lukas Winiwarter
 }
 \concept{sample functions}

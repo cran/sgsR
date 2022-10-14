@@ -7,6 +7,7 @@ knitr::opts_chunk$set(
 ## ----warning=F,message=F,echo=FALSE-------------------------------------------
 library(sgsR)
 library(terra)
+library(dplyr)
 
 #--- Load mraster and access files ---#
 r <- system.file("extdata", "mraster.tif", package = "sgsR")
@@ -227,4 +228,55 @@ s <- sample_ahels(mraster = mraster,
 
 ## ----echo=FALSE---------------------------------------------------------------
 s
+
+## ----warning=F,message=F------------------------------------------------------
+#--- generate existing samples and extract metrics ---#
+existing <- sample_systematic(raster = mraster, cellsize = 200, plot = TRUE) %>%
+  extract_metrics(mraster = mraster, existing = .)
+
+
+## ----warning=F,message=F------------------------------------------------------
+#--- sub sample using ---#
+sample_existing(existing = existing, # our existing sample
+                nSamp = 300, # the number of samples we want
+                plot = TRUE) # plot
+
+
+## ----warning=F,message=F------------------------------------------------------
+#--- sub sample using ---#
+sample_existing(existing = existing, # our existing sample
+                nSamp = 300, # the number of samples we want
+                raster = mraster, # include mraster metrics to guide sampling of existing
+                plot = TRUE) # plot
+
+
+## ----warning=F,message=F------------------------------------------------------
+#--- create distance from roads metric ---#
+dist <- calculate_distance(raster = mraster, access = access)
+
+
+## ----warning=F,message=F------------------------------------------------------
+#--- sub sample using ---#
+sample_existing(existing = existing, # our existing sample
+                nSamp = 300, # the number of samples we want
+                raster = dist, # include mraster metrics to guide sampling of existing
+                cost = 4, # either provide the index (band number) or the name of the cost layer
+                plot = TRUE) # plot
+
+
+## ----warning=F,message=F------------------------------------------------------
+#--- ensure access and existing are in the same CRS ---#
+
+sf::st_crs(existing) <- sf::st_crs(access)
+
+#--- sub sample using ---#
+sample_existing(existing = existing, # our existing sample
+                nSamp = 300, # the number of samples we want
+                raster = dist, # include mraster metrics to guide sampling of existing
+                cost = 4, # either provide the index (band number) or the name of the cost layer
+                access = access, # roads layer
+                buff_inner = 50, # inner buffer - no samples within this distance from road
+                buff_outer = 300, # outer buffer - no samples further than this distance from road
+                plot = TRUE) # plot
+
 
