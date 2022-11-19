@@ -1,6 +1,6 @@
 Package: sgsR
 Type: Package
-Version: 1.3.1
+Version: 1.3.2
 License: GPL (>= 3)
 Title: Structurally Guided Sampling
 Authors@R: c(
@@ -39,11 +39,11 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 RoxygenNote: 7.2.0
 NeedsCompilation: no
-Packaged: 2022-10-13 21:39:44 UTC; tgood
+Packaged: 2022-11-17 23:31:51 UTC; tgood
 Author: Tristan RH Goodbody [aut, cre, cph]
     (<https://orcid.org/0000-0002-6894-7925>),
   Nicholas C Coops [aut] (<https://orcid.org/0000-0002-0151-9037>),
   Martin Queinnec [aut] (<https://orcid.org/0000-0002-2741-1032>)
 Maintainer: Tristan RH Goodbody <goodbody.t@gmail.com>
 Repository: CRAN
-Date/Publication: 2022-10-14 08:50:05 UTC
+Date/Publication: 2022-11-19 12:40:02 UTC
