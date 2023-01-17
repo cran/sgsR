@@ -4,6 +4,7 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
+
 ## ----warning=F,message=F,echo=FALSE,results=FALSE-----------------------------
 library(sgsR)
 library(terra)
@@ -29,6 +30,23 @@ existing <- sample_strat(sraster = sraster, # use mraster as input for sampling
                          nSamp = 200, # request 200 samples be taken
                          mindist = 100) # define that samples must be 100 m apart
 
+#--- algorithm table ---#
+
+a <- c("`strat_kmeans()`","`strat_quantiles()`","`strat_breaks()`","`strat_poly()`","`strat_map()`")
+
+d <- c("kmeans", "Quantiles", "User-defined breaks", "Polygons", "Maps (combines) `srasters`")
+
+s <- c("Unsupervised", "Unsupervised", "Supervised", "Supervised", "Unsupervised")
+
+urls <- c("#kmeans","#quantiles","#breaks","#poly","#map")
+
+df <- data.frame(Algorithm = a, Description = d, Approach = s)
+
+df$Algorithm <- paste0("[", df$Algorithm, "](", urls, ")")
+
+
+## ----echo=FALSE---------------------------------------------------------------
+knitr::kable(df, align = 'c')
 
 ## ----warning=F,message=F------------------------------------------------------
 #--- perform stratification using k-means ---#
@@ -91,8 +109,6 @@ poly <- system.file("extdata", "inventory_polygons.shp", package = "sgsR")
 
 fri <- sf::st_read(poly)
 
-## -----------------------------------------------------------------------------
-#--- stratify polygon coverage ---#
 #--- specify polygon attribute to stratify ---#
 
 attribute <- "NUTRIENTS"
@@ -101,6 +117,9 @@ attribute <- "NUTRIENTS"
 #--- as a single vector ---#
 
 features <- c("poor", "rich", "medium")
+
+## -----------------------------------------------------------------------------
+#--- stratify polygon coverage ---#
 
 srasterpoly <- strat_poly(poly = fri, # input polygon
                           attribute = attribute, # attribute to stratify by

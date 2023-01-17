@@ -1,4 +1,22 @@
+# sgsR 1.3.3
+
+`fixed` - CRAN issue where errors were encountered when run on ATLAS instances.
+
+`enhancement` - Edited vignettes and documentation for clarity.
+
+`enhancement` - `sample_srs()` - Added message to tell users when `nSamp` sample units were unable to be allocated. From Evan Muise.
+
+`enchancement` - `calculate_pcomp()` - Added `maxcells` parameter based on suggestion from R. Hijmans.
+
+# sgsR 1.3.21
+
+`fixed` - `strat_quantiles() / strat_kmeans()` - solved issue where correct number of strata & float strata values were being output.
+
+`enhancement` - `sample_existing()` - made it so extra attributes are passed to output when `raster` is provided. Added additional unit tests and updated documentation.
+
 # sgsR 1.3.2
+
+`enhancement` - `README.Rmd` and vignettes have been updated.
 
 `enhancement` - `sample_systematic()` - changed how tessellation was used internally and visualized during plotting.
 

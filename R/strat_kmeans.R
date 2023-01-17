@@ -6,10 +6,10 @@
 #' @inheritParams strat_breaks
 #'
 #' @param mraster spatRaster. ALS metrics raster.
-#' @param nStrata Character. Number of desired strata.
+#' @param nStrata Numeric. Number of desired strata.
 #' @param iter Numeric. The maximum number of iterations allowed.
-#' @param algorithm Character. \code{Lloyd} (default) or
-#' \code{MacQueen} algorithms.
+#' @param algorithm Character. \code{"Lloyd"} (default) or
+#' \code{"MacQueen"} algorithms.
 #' @param center Logical. Value indicating whether the variables should be shifted to be zero centered.
 #' @param scale Logical. Value indicating whether the variables should be scaled to have unit variance.
 #' @param plot Logical. Plots output strata raster and visualized
@@ -112,13 +112,12 @@ strat_kmeans <- function(mraster,
   
   #--- R Hijmans suggested edit ---#
   #--- create a single vector of NAs of length ncell ---#
-  valsOut <- rep(NA, nrow(vals))
+  odf <- matrix(nrow = nrow(vals), ncol = 1)
   
-  #--- set the cluster values ---#
-  valsOut[idx] <- km_clust$cluster
+  odf[,1][idx] <- km_clust$cluster
   
   #--- re-assign kmeans values to raster ---#
-  kmv <- terra::setValues(mraster[[1]], valsOut)
+  kmv <- terra::setValues(mraster[[1]], odf[,1])
   
   names(kmv) <- "strata"
 

@@ -53,7 +53,7 @@ is the tessellation grid for sampling, and \code{samples} are the systematic sam
 \item{...}{Additional arguments for clhs sampling. See \code{\link[clhs]{clhs}}.}
 }
 \value{
-An sf object of samples
+An sf object of samples or a list object if `details = TRUE`
 }
 \description{
 Sub-sample an existing sample using \code{\link[clhs]{clhs}} functionality.
@@ -63,6 +63,7 @@ If providing only \code{existing} - all attributes will be used for sampling. Re
 prior to using this algorithm.
 }
 \examples{
+\dontrun{
 #--- Load raster ---#
 r <- system.file("extdata", "mraster.tif", package = "sgsR")
 mr <- terra::rast(r)
@@ -74,14 +75,7 @@ e <- sample_systematic(raster = mr, cellsize = 200)
 sample_existing(existing = e,
                 raster = mr,
                 nSamp = 50)
-                
-#--- extract metrics to sample ---#
-e <- extract_metrics(mr, e)
-
-#--- perform sub-sampling ---#
-sample_existing(existing = e,
-                nSamp = 30, 
-                plot = TRUE)
+}          
 
 }
 \seealso{

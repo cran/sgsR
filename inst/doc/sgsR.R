@@ -4,6 +4,18 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
+
+## ----echo=FALSE---------------------------------------------------------------
+
+p <- c("`mraster`", "`sraster`", "`access`", "`existing`", "plot")
+
+d <- c("Metric raster(s)", "Stratified raster", "Linear vectors representing access routes", "Existing sample units", "Visually displays raster and samples")
+
+df <- data.frame(Parameter = p, Description = d)
+
+knitr::kable(df, align = 'c')
+
+
 ## ----warning=F,message=F------------------------------------------------------
 library(sgsR)
 library(terra)
@@ -14,16 +26,6 @@ r <- system.file("extdata", "mraster.tif", package = "sgsR")
 
 #--- load mraster using the terra package ---#
 mraster <- terra::rast(r)
-
-## ----warning=F,message=F------------------------------------------------------
-a <- system.file("extdata", "access.shp", package = "sgsR")
-
-#--- load the access vector using the sf package ---#
-access <- sf::st_read(a)
-
-## ----warning=F,message=F------------------------------------------------------
-terra::plot(mraster$zq90)
-terra::plot(access, add = TRUE, col = "black")
 
 ## ----warning=F,message=F------------------------------------------------------
 #--- apply kmeans algorithm to metrics raster ---#
@@ -39,6 +41,16 @@ existing <- sample_strat(sraster = sraster, # use mraster as input for sampling
                          mindist = 100, # define that samples must be 100 m apart
                          plot = TRUE) # algorithm will plot output
 
+
+## ----warning=F,message=F------------------------------------------------------
+a <- system.file("extdata", "access.shp", package = "sgsR")
+
+#--- load the access vector using the sf package ---#
+access <- sf::st_read(a)
+
+## ----warning=F,message=F------------------------------------------------------
+terra::plot(mraster$zq90)
+terra::plot(access, add = TRUE, col = "black")
 
 ## ----pipe, eval= FALSE--------------------------------------------------------
 #  #--- non piped ---#

@@ -28,6 +28,21 @@ existing <- sample_strat(sraster = sraster, # use mraster as input for sampling
                          nSamp = 200, # request 200 samples be taken
                          mindist = 100) # define that samples must be 100 m apart
 
+#--- algorithm table ---#
+
+a <- c("`calculate_representation()`","`calculate_distance()`","`calculate_pcomp()`","`calculate_sampsize()`","`calculate_allocation()`","`calculate_coobs()`","`calculate_pop()`","`calculate_lhsOpt()`")
+
+d <- c("Determine representation of strata in existing sample unit", "Per pixel distance to closest `access` vector", "Principal components of input `mraster`", "Estimated sample sizes based on relative standard error", "Proportional / optimal / equal / manual allocation", "Detail how `existing` sample units are distributed among `mraster`", "Population level information (PCA / quantile matrix / covariance matrix) of `mraster`", "Determine optimal Latin hypercube sampling parameters including sample size")
+
+urls <- c("#rep","#dist","#pcomp","#sampsize","#allocation","#coobs","#lhspop","#lhsopt")
+
+df <- data.frame(Algorithm = a, Description = d)
+
+df$Algorithm <- paste0("[", df$Algorithm, "](", urls, ")")
+
+
+## ----echo=FALSE---------------------------------------------------------------
+knitr::kable(df, align = 'c')
 
 ## ----warning=F,message=F------------------------------------------------------
 #--- quantile sraster ---#
@@ -131,11 +146,11 @@ calculate_allocation(sraster = sraster, # stratified raster
 #                       nQuant = 10) # desired number of quantiles
 #  
 #  #--- use matrix output within sample ahels algorithm ---#
-#  sample_ahels(mraster = mraster,
-#               existing = existing,
-#               nQuant = 10,
-#               nSamp = 50,
-#               matCov = mat)
+#  sample_ahels(mraster = mraster, # input
+#               existing = existing, # existing sample
+#               nQuant = 10, # number of desired quantiles
+#               nSamp = 50, # desired sample size
+#               matCov = mat) # covariance matrix
 
 ## ----warning=F,message=F, eval = FALSE----------------------------------------
 #  #--- calculate lhsPop details ---#
