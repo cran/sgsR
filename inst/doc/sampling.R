@@ -62,28 +62,28 @@ sample_srs(raster = mraster, # input mraster
            buff_outer = 200, # outer buffer - no sample units further than this distance from road
            plot = TRUE) # plot
 
-## ----warning=F,message=F,eval = FALSE-----------------------------------------
-#  #--- perform grid sampling ---#
-#  sample_systematic(raster = sraster, # input sraster
-#                    cellsize = 1000, # grid distance
-#                    plot = TRUE) # plot
+## ----warning=F,message=F------------------------------------------------------
+#--- perform grid sampling ---#
+sample_systematic(raster = sraster, # input sraster
+                  cellsize = 1000, # grid distance
+                  plot = TRUE) # plot
 
-## ----warning=F,message=F,eval = FALSE-----------------------------------------
-#  #--- perform grid sampling ---#
-#  sample_systematic(raster = sraster, # input sraster
-#                    cellsize = 500, # grid distance
-#                    square = FALSE, # hexagonal tessellation
-#                    location = "random", # randomly sample within tessellation
-#                    plot = TRUE) # plot
+## ----warning=F,message=F------------------------------------------------------
+#--- perform grid sampling ---#
+sample_systematic(raster = sraster, # input sraster
+                  cellsize = 500, # grid distance
+                  square = FALSE, # hexagonal tessellation
+                  location = "random", # randomly sample within tessellation
+                  plot = TRUE) # plot
 
-## ----warning=F,message=F,eval = FALSE-----------------------------------------
-#  sample_systematic(raster = sraster, # input sraster
-#              cellsize = 500, # grid distance
-#              access = access, # define access road network
-#              buff_outer = 200, # outer buffer - no sample units further than this distance from road
-#              square = FALSE, # hexagonal tessellation
-#              location = "corners", # take corners instead of centers
-#              plot = TRUE)
+## ----warning=F,message=F------------------------------------------------------
+sample_systematic(raster = sraster, # input sraster
+            cellsize = 500, # grid distance
+            access = access, # define access road network
+            buff_outer = 200, # outer buffer - no sample units further than this distance from road
+            square = FALSE, # hexagonal tessellation
+            location = "corners", # take corners instead of centers
+            plot = TRUE)
 
 ## ----warning=F,message=F------------------------------------------------------
 #--- perform stratified sampling random sampling ---#

@@ -1,3 +1,25 @@
+# sgsR 1.3.4
+
+`fixed` - `sample_srs() / sample_strat(method = "random")` - First sample unit was always duplicated From Tommaso Trotto.
+
+`added` - `plot_scatter()` - Internal function. Scatter plot visualizing relationship between 2 `mraster` metrics with `existing` samples superimposed. 
+
+# sgsR 1.3.33
+
+`fixed` - `sample_strat()` - `srasters` with categorical values were crashing the algorithm due to inability to combine facter and non-factor values from Evan Muise.
+
+`fixed` - `sample_systematic()` - Added more contingency for `cellsize` values that resulted in empty sample output.
+
+# sgsR 1.3.32
+
+`fixed` - `strat_map()` - `stratamapped` was outputting as character and not as integer or character depending on input strata type as intended from Tommaso Trotto.
+
+# sgsR 1.3.31
+
+`enchancement` - `calculate_pcomp()` - Added `maxcells` parameter based on suggestion from R. Hijmans.
+
+`fixed` - `sample_systematic()` - Fixed issue related to ATLAS Blas and CRAN errors with suggestions and support from R. Hijmans.
+
 # sgsR 1.3.3
 
 `fixed` - CRAN issue where errors were encountered when run on ATLAS instances.
@@ -5,8 +27,6 @@
 `enhancement` - Edited vignettes and documentation for clarity.
 
 `enhancement` - `sample_srs()` - Added message to tell users when `nSamp` sample units were unable to be allocated. From Evan Muise.
-
-`enchancement` - `calculate_pcomp()` - Added `maxcells` parameter based on suggestion from R. Hijmans.
 
 # sgsR 1.3.21
 

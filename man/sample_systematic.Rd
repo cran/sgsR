@@ -66,10 +66,10 @@ Systematic sampling with random start point and translation within a square or h
 Specifying \code{location = "random"} can result in tessellations with no samples.
 This results from \code{raster} have \code{NA} values at the random location chosen.
 Using \code{force = TRUE} removes areas of \code{NA} from sampling entirely, but
-considerably slows processing speeds.
+considerably slows processing speeds. Thanks to R. Hijmans for help in debugging and 
+providing suggestions for this script.
 }
 \examples{
-\dontrun{
 #--- Load raster and access files ---#
 r <- system.file("extdata", "mraster.tif", package = "sgsR")
 mr <- terra::rast(r)
@@ -93,7 +93,6 @@ sample_systematic(
   location = "random",
   plot = TRUE
 )
-}
 
 }
 \seealso{
