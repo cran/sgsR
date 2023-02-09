@@ -15,9 +15,8 @@ plot_scatter(mraster, existing, reverse = FALSE, samp = 0.01)
 
 \item{coordsgrps}{List. Cartesian coordinates of each strata}
 
-\item{mraster}{Spatraster. Primary covariate raster to stratify.}
-
-\item{mraster2}{Spatraster. Secondary covariate raster to stratify.}
+\item{mraster}{Spatraster. Raster to stratify. Layers in \code{mraster} must match the number of
+\code{breaks} vectors provided.}
 
 \item{samp}{Numeric. Determines proportion of cells to plot}
 
@@ -36,7 +35,7 @@ Class Plot
 Scatter Plot
 }
 \note{
-Population in dark grey and samples in red.
+Population in viridis and samples in red.
 }
 \concept{plot}
 \keyword{internal}

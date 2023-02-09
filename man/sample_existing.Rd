@@ -71,9 +71,11 @@ mr <- terra::rast(r)
 e <- sample_systematic(raster = mr, cellsize = 200)
 
 #--- perform sub-sampling ---#
-sample_existing(existing = e,
-                raster = mr,
-                nSamp = 50)
+sample_existing(
+  existing = e,
+  raster = mr,
+  nSamp = 50
+)
 
 }
 \seealso{
@@ -84,6 +86,7 @@ Other sample functions:
 \code{\link{sample_nc}()},
 \code{\link{sample_srs}()},
 \code{\link{sample_strat}()},
+\code{\link{sample_sys_strat}()},
 \code{\link{sample_systematic}()}
 }
 \author{

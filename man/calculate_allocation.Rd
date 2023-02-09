@@ -40,7 +40,7 @@ Has no effect when \code{existing} is provided.}
 Returns a data.frame of:
 \itemize{
 \item{strata} - Strata ID.
-\item{total} - Number of samples to be allocated. Values correspond to under representation (samples needed; positive value) or over representation 
+\item{total} - Number of samples to be allocated. Values correspond to under representation (samples needed; positive value) or over representation
 (too many samples; negative value) based on the \code{nSamp} provided.
 \item{need} - Required samples per strata based on allocation method. Rounded.
 }
@@ -49,6 +49,7 @@ Returns a data.frame of:
 Determine how many samples to allocate within strata.
 }
 \examples{
+\dontrun{
 #--- Load strata raster and existing samples---#
 r <- system.file("extdata", "sraster.tif", package = "sgsR")
 sr <- terra::rast(r)
@@ -62,6 +63,7 @@ calculate_allocation(
   nSamp = 10,
   allocation = "prop"
 )
+}
 
 }
 \references{

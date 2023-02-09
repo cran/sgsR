@@ -13,6 +13,9 @@ mrastersmall <- terra::rast(mr)
 sr <- system.file("extdata", "sraster.tif", package = "sgsR")
 sraster <- terra::rast(sr)
 
+#--- strat raster stack ---#
+sraster2 <- c(sraster, sraster)
+
 #--- existing samples ---#
 e <- system.file("extdata", "existing.shp", package = "sgsR")
 existing <- sf::st_read(e, quiet = TRUE)
@@ -40,23 +43,36 @@ names(x) <- "strata"
 
 crs(x) <- crs(mraster)
 
-xmraster <- c(mraster,x)
+xmraster <- c(mraster, x)
+
+#--- logical raster ---#
+x2 <- x1 %>%
+  terra::setValues(., rep(TRUE, 100))
+x2 <- c(x2, x2)
+names(x2) <- c("strata1", "strata2")
 
 #--- coordinates ---#
 coords <- sf::st_coordinates(existing)
 
 #--- dataframes and NA dataframes ---#
-existing.df.n.xy <- existing %>% extract_metrics(mraster, .) %>% sf::st_drop_geometry(.) %>% as.data.frame() %>% cbind(., coords)
+existing.df.n.xy <- existing %>%
+  extract_metrics(mraster, .) %>%
+  sf::st_drop_geometry(.) %>%
+  as.data.frame() %>%
+  cbind(., coords)
 
-existing.df.n.xy.lc <- existing %>% sf::st_drop_geometry(.) %>% as.data.frame() %>% cbind(., coords)
+existing.df.n.xy.lc <- existing %>%
+  sf::st_drop_geometry(.) %>%
+  as.data.frame() %>%
+  cbind(., coords)
 
-names(existing.df.n.xy.lc) <- c("FID","x","y")
+names(existing.df.n.xy.lc) <- c("FID", "x", "y")
 
 #--- supply quantile and covariance matrices ---#
 mat <- calculate_pop(mraster = mraster)
 
 #-- additional ---#
-weights <- c(0.25,0.25,0.25,0.25)
+weights <- c(0.25, 0.25, 0.25, 0.25)
 
 e <- extract_strata(sraster, existing)
 

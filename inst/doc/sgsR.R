@@ -4,17 +4,14 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-
 ## ----echo=FALSE---------------------------------------------------------------
-
-p <- c("`mraster`", "`sraster`", "`access`", "`existing`", "plot")
+p <- c("`mraster`", "`sraster`", "`access`", "`existing`", "`plot`")
 
 d <- c("Metric raster(s)", "Stratified raster", "Linear vectors representing access routes", "Existing sample units", "Visually displays raster and samples")
 
 df <- data.frame(Parameter = p, Description = d)
 
-knitr::kable(df, align = 'c')
-
+knitr::kable(df, align = "c")
 
 ## ----warning=F,message=F------------------------------------------------------
 library(sgsR)
@@ -29,18 +26,20 @@ mraster <- terra::rast(r)
 
 ## ----warning=F,message=F------------------------------------------------------
 #--- apply kmeans algorithm to metrics raster ---#
-sraster <- strat_quantiles(mraster = mraster$zq90, # use mraster as input for sampling
-                           nStrata = 4, # algorithm will produce 4 strata
-                           plot = TRUE) # algorithm will plot output
-
+sraster <- strat_quantiles(
+  mraster = mraster$zq90, # use mraster as input for sampling
+  nStrata = 4, # algorithm will produce 4 strata
+  plot = TRUE
+) # algorithm will plot output
 
 ## ----warning=F,message=F------------------------------------------------------
 #--- apply stratified sampling ---#
-existing <- sample_strat(sraster = sraster, # use mraster as input for sampling
-                         nSamp = 200, # request 200 samples be taken
-                         mindist = 100, # define that samples must be 100 m apart
-                         plot = TRUE) # algorithm will plot output
-
+existing <- sample_strat(
+  sraster = sraster, # use mraster as input for sampling
+  nSamp = 200, # request 200 samples be taken
+  mindist = 100, # define that samples must be 100 m apart
+  plot = TRUE
+) # algorithm will plot output
 
 ## ----warning=F,message=F------------------------------------------------------
 a <- system.file("extdata", "access.shp", package = "sgsR")
@@ -54,19 +53,24 @@ terra::plot(access, add = TRUE, col = "black")
 
 ## ----pipe, eval= FALSE--------------------------------------------------------
 #  #--- non piped ---#
-#  sraster <- strat_quantiles(mraster = mraster$zq90, # use mraster as input for sampling
-#                             nStrata = 4) # algorithm will produce 4 strata
+#  sraster <- strat_quantiles(
+#    mraster = mraster$zq90, # use mraster as input for sampling
+#    nStrata = 4
+#  ) # algorithm will produce 4 strata
 #  
-#  existing <- sample_strat(sraster = sraster, # use mraster as input for sampling
-#                           nSamp = 200, # request 200 samples be taken
-#                           mindist = 100) # define that samples must be 100 m apart
+#  existing <- sample_strat(
+#    sraster = sraster, # use mraster as input for sampling
+#    nSamp = 200, # request 200 samples be taken
+#    mindist = 100
+#  ) # define that samples must be 100 m apart
 #  
-#  extract_metrics(mraster = mraster,
-#                  existing = existing)
+#  extract_metrics(
+#    mraster = mraster,
+#    existing = existing
+#  )
 #  
 #  #--- piped ---#
 #  strat_quantiles(mraster = mraster$zq90, nStrata = 4) %>%
 #    sample_strat(., nSamp = 200, mindist = 100) %>%
 #    extract_metrics(mraster = mraster, existing = .)
-#  
 
