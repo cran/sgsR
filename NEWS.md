@@ -1,3 +1,23 @@
+# sgsR 1.4.2
+
+`added` - `utils-write` - made writing functions for samples, rasters, and tables to make code more succinct.
+
+`enhanced` - `sample_existing` - A major change to `sample_existing()` has been implemented. Prior to `sgsR` v1.4.2, `sample_existing()` only leveraged `sample_clhs()` functionality. New functionality has been added to allow users to define the sub-sampling method of their choice out of (`sample_srs()`, `sample_balanced()`, `sample_strat()`, `sample_clhs()`). To do so, additional internal functions (`sample_existing_strat()`, `sample_existing_srs()`, `sample_existing_balanced()`, `sample_existing_srs()`) have been added that take in `existing` data and perform sampling based on those data. For `sample_existing_strat()`, new allocation algorithms that take `existing` as inputs needed to be written that are found in `utils-allocation-existing()`. Additionally, more utility functions that check `existing` data, and prepare `existing` data for sub-sampling have been developed and implemented in `utils-existing()`. Unit tests for all functions have been added. The `plot` parameter has been removed from `sample_existing()` for now. Likely to be added again later.
+
+`enhanced` - Sampling Vignette - Added content about `sample_existing()`
+
+`fixed` - `strat_map()` - Fixed improper use of `terra::hasValues`. From Robert Hijmans #31
+
+# sgsR 1.4.1
+
+`fixed` - `sample_ahels()` - gave an erroneous error when `matrices` was provided and `nQuant` did not match. Changed to allow only `matrices` to be provided.
+
+`fixed` - `extract_strata()` - added error message if `sraster` had multiple layers #28
+
+`fixed` - `extract_metrics()` - removed code where `mraster` layers with `ID` as name were removed. From Tomasso Trotto #27
+
+`enhanced` - `calculate_representation()` - Added parameter `drop = NULL`. If `!=NULL` then filtering is applied where strata with under drop frequency are dropped from resulting dataframe and plot.  #28
+
 # sgsR 1.4.0
 
 `added` - `sample_sys_strat()` - Systematic stratified sampling. Using same functionality as `sample_systematic()` but takes an `sraster` as input and performs sampling on each stratum iteratively.
@@ -11,8 +31,6 @@
 `enhanced` - Updated vignettes and documentation to account for vectorized functionality of the above functions.
 
 `enhanced` - `plot_scatter()` - now visualizes with `viridis` colour scheme.
-
-`fixed` - Added new citation information for upcoming manuscript release.
 
 `fixed` - Added new citation information for upcoming manuscript release.
 

@@ -21,7 +21,8 @@
 #' to permit the algorithm to not add additional samples if quantile density is very close to 1, or user-defined \code{threshold}.
 #' @param matrices List. Quantile and covariance matrices generated from \code{calculate_pop(mraster = mraster, nQuant = nQuant)}.
 #' Both \code{mraster} & \code{nQuant} inputs must be the same to supply the covariance matrix. Supplying the matrix allows users
-#' with very large \code{mrasters} to pre-process the covariance matrix to avoid longer sampling processing times.
+#' with very large \code{mrasters} to pre-process the covariance matrix to avoid longer sampling processing times. If \code{matrices} is
+#' provided, the \code{nQuant} parameter is ignored and taken from the covariance matrix.
 #' @param plot Logical. Plots samples of type \code{existing} (if provided; crosses) and \code{new} (circles) along with \code{mraster}.
 #'
 #' @references
@@ -157,9 +158,9 @@ sample_ahels <- function(mraster,
       stop("'matrices' must be the output from 'calculate_pop()'.", call. = FALSE)
     }
 
-    if (nrow(matrices$matCov) != nQuant) {
-      stop("Number of quantiles in provided 'matrices' does not match 'nQuant'.", call. = FALSE)
-    }
+    #--- get nQuant from matrices ---#
+
+    nQuant <- nrow(matrices$matCov)
 
     if (!all(names(matrices$values) == names(mraster))) {
       stop("'mraster' used to generate 'matrices' must be identical.", call. = FALSE)
@@ -349,22 +350,8 @@ sample_ahels <- function(mraster,
     suppressWarnings(terra::plot(samples, add = T, col = "black", pch = ifelse(samples$type == "existing", 1, 3)))
   }
 
-  if (!is.null(filename)) {
-    if (!is.character(filename)) {
-      stop("'filename' must be a file path character string.", call. = FALSE)
-    }
-
-    if (!is.logical(overwrite)) {
-      stop("'overwrite' must be type logical.", call. = FALSE)
-    }
-
-    if (file.exists(filename) & isFALSE(overwrite)) {
-      stop(paste0("'", filename, "' already exists and overwrite = FALSE."), call. = FALSE)
-    }
-
-    sf::st_write(samples, filename, delete_layer = overwrite)
-    message("Output samples written to disc.")
-  }
+  #--- write outputs if desired ---#
+  write_samples(samples = samples, filename = filename, overwrite = overwrite)
 
   #--- output samples & / or samples and details (ratio matrix) ---#
 

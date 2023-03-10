@@ -52,6 +52,10 @@ extract_strata <- function(sraster,
     stop("'sraster' must be type SpatRaster.", call. = FALSE)
   }
 
+  if (terra::nlyr(sraster) > 1) {
+    stop("'sraster' must have a single layer named 'strata'.", call. = FALSE)
+  }
+
   if (any(!c("strata") %in% names(sraster))) {
     stop("'sraster' must have a layer named 'strata'.", call. = FALSE)
   }
@@ -152,24 +156,8 @@ extract_strata <- function(sraster,
         dplyr::select(-geometry)
     }
 
-    if (!is.null(filename)) {
-      if (!is.character(filename)) {
-        stop("'filename' must be type character.", call. = FALSE)
-      }
-
-      if (!is.logical(overwrite)) {
-        stop("'overwrite' must be type logical.", call. = FALSE)
-      }
-
-      #--- append and overwrite are opposites .. need to invert them for csv writing ---#
-
-      if (file.exists(filename) & isFALSE(overwrite)) {
-        stop(paste0("'", filename, "' already exists and overwrite = FALSE"))
-      }
-
-      utils::write.table(x = samples, file = filename, append = !overwrite)
-      message("Output samples written to disc.")
-    }
+    #--- write outputs if desired ---#
+    write_samples_df(samples = samples, filename = filename, overwrite = overwrite)
 
     #--- return data.frame ---#
     return(samples)
@@ -178,22 +166,8 @@ extract_strata <- function(sraster,
     samples <- cbind(xy, vals, existing) %>%
       sf::st_as_sf(., coords = c("X", "Y"), crs = crs)
 
-    if (!is.null(filename)) {
-      if (!is.character(filename)) {
-        stop("'filename' must be type character.", call. = FALSE)
-      }
-
-      if (!is.logical(overwrite)) {
-        stop("'overwrite' must be type logical.", call. = FALSE)
-      }
-
-      if (file.exists(filename) & isFALSE(overwrite)) {
-        stop(paste0("'", filename, "' already exists and overwrite = FALSE"))
-      }
-
-      sf::st_write(samples, filename, delete_layer = overwrite)
-      message("Output samples written to disc.")
-    }
+    #--- write outputs if desired ---#
+    write_samples(samples = samples, filename = filename, overwrite = overwrite)
 
     #--- return sf object ---#
     return(samples)

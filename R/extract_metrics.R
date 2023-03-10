@@ -112,12 +112,6 @@ extract_metrics <- function(mraster,
 
   vals <- terra::extract(mraster, xy)
 
-  #--- when dataframe is input "ID" is appended to vals -- remove it ---#
-
-  if ("ID" %in% names(vals)) {
-    vals <- vals %>% dplyr::select(-ID)
-  }
-
   #--- check that extractions has produced some values -- if not tell the user ---#
 
   if (all(!complete.cases(vals))) {
@@ -145,20 +139,8 @@ extract_metrics <- function(mraster,
         dplyr::select(-geometry)
     }
 
-    if (!is.null(filename)) {
-      if (!is.logical(overwrite)) {
-        stop("'overwrite' must be type logical.", call. = FALSE)
-      }
-
-      #--- append and overwrite are opposites .. need to invert them for csv writing ---#
-
-      if (file.exists(filename) & isFALSE(overwrite)) {
-        stop(paste0("'", filename, "' already exists and overwrite = FALSE"), call. = FALSE)
-      }
-
-      utils::write.table(x = samples, file = filename, append = !overwrite)
-      message("Output samples written to disc.")
-    }
+    #--- write outputs if desired ---#
+    write_samples_df(samples = samples, filename = filename, overwrite = overwrite)
 
     #--- return data.frame ---#
     return(samples)
@@ -168,18 +150,8 @@ extract_metrics <- function(mraster,
     samples <- cbind(xy, vals, existing) %>%
       sf::st_as_sf(., coords = c("X", "Y"), crs = crs)
 
-    if (!is.null(filename)) {
-      if (!is.logical(overwrite)) {
-        stop("'overwrite' must be type logical.", call. = FALSE)
-      }
-
-      if (file.exists(filename) & isFALSE(overwrite)) {
-        stop(paste0("'", filename, "' already exists and overwrite = FALSE"), call. = FALSE)
-      }
-
-      sf::st_write(samples, filename, delete_layer = overwrite)
-      message("Output samples written to disc.")
-    }
+    #--- write outputs if desired ---#
+    write_samples(samples = samples, filename = filename, overwrite = overwrite)
 
     #--- return sf object ---#
     return(samples)

@@ -41,7 +41,7 @@ sf::st_crs(existing) <- terra::crs(sraster)
 
 a <- c("`sample_srs()`", "`sample_systematic()`", "`sample_strat()`", "`sample_sys_strat()`", "`sample_nc()`", "`sample_clhs()`", "`sample_balanced()`", "`sample_ahels()`", "`sample_existing()`")
 
-d <- c("Simple random", "Systematic", "Stratified", "Systematic Stratified", "Nearest centroid", "Conditioned Latin hypercube", "Balanced sampling", "Adapted hypercube evaluation of a legacy sample", "Sub-sampling an existing sample")
+d <- c("Simple random", "Systematic", "Stratified", "Systematic Stratified", "Nearest centroid", "Conditioned Latin hypercube", "Balanced sampling", "Adapted hypercube evaluation of a legacy sample", "Sub-sampling an `existing` sample")
 
 s <- c("", "", "[Queinnec, White, & Coops (2021)](https://www.sciencedirect.com/science/article/pii/S0034425721002303)", "", "[Melville & Stone (2016)](https://doi.org/10.1080/00049158.2016.1218265)", "[Minasny & McBratney (2006)](https://www.sciencedirect.com/science/article/pii/S009830040500292X?via%3Dihub)", "[Grafström, A. Lisic, J (2018)](http://www.antongrafstrom.se/balancedsampling/)", "[Malone, Minasny, & Brungard (2019)](https://peerj.com/articles/6451/)", "")
 
@@ -328,14 +328,15 @@ s
 
 ## ----warning=F,message=F------------------------------------------------------
 #--- generate existing samples and extract metrics ---#
-existing <- sample_srs(raster = mraster, nSamp = 900, plot = TRUE)
+existing <- sample_systematic(raster = mraster, cellsize = 200, plot = TRUE)
 
-## ----warning=F,message=F------------------------------------------------------
 #--- sub sample using ---#
 e <- existing %>%
   extract_metrics(mraster = mraster, existing = .)
 
-sample_existing(existing = e, nSamp = 300, plot = TRUE)
+## ----warning=F,message=F------------------------------------------------------
+#--- sub sample using ---#
+sample_existing(existing = e, nSamp = 300, type = "clhs")
 
 ## ----warning=F,message=F------------------------------------------------------
 #--- sub sample using ---#
@@ -376,4 +377,38 @@ sample_existing(
   buff_outer = 300, # outer buffer - no sample units further than this distance from road
   plot = TRUE
 ) # plot
+
+## ----warning=F,message=F------------------------------------------------------
+sample_existing(existing = e, nSamp = 300, type = "balanced")
+
+## ----warning=F,message=F------------------------------------------------------
+sample_existing(existing = e, nSamp = 300, type = "balanced", algorithm = "lcube")
+
+## ----warning=F,message=F------------------------------------------------------
+sample_existing(existing = e, nSamp = 300, type = "srs")
+
+## ----warning=F,message=F------------------------------------------------------
+sraster <- strat_kmeans(mraster = mraster, nStrata = 4)
+
+e_strata <- extract_strata(sraster = sraster, existing = e)
+
+## ----warning=F,message=F------------------------------------------------------
+#--- proportional stratified sampling of existing ---#
+sample_existing(existing = e_strata, nSamp = 300, type = "strat", allocation = "prop")
+
+## ----warning=F,message=F------------------------------------------------------
+#--- equal stratified sampling of existing ---#
+sample_existing(existing = e_strata, nSamp = 100, type = "strat", allocation = "equal")
+
+## ----warning=F,message=F------------------------------------------------------
+#--- manual stratified sampling of existing with user defined weights ---#
+s <- sample_existing(existing = e_strata, nSamp = 100, type = "strat", allocation = "manual", weights = c(0.2, 0.6, 0.1, 0.1))
+
+## ----warning=F,message=F------------------------------------------------------
+#--- check proportions match weights ---#
+table(s$strata) / 100
+
+## ----warning=F,message=F------------------------------------------------------
+#--- manual stratified sampling of existing with user defined weights ---#
+sample_existing(existing = e_strata, nSamp = 100, type = "strat", allocation = "optim", raster = mraster, metric = "zq90")
 
