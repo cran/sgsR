@@ -91,7 +91,7 @@ sample_strat <- function(sraster,
                          filename = NULL,
                          overwrite = FALSE) {
   #--- Set global vars ---#
-  x <- y <- cell <- cats <- NULL
+  x <- y <- cell <- cats <- rule <- NULL
 
   #--- Error management ---#
   if (!inherits(sraster, "SpatRaster")) {
@@ -242,6 +242,9 @@ sample_strat <- function(sraster,
     extraCols <- colnames(existing)[!colnames(existing) %in% c("cell", "X", "Y", "strata")]
   } else {
     message("Using 'random' sampling method. Ignoring 'existing', 'include', 'remove' if provided.")
+    
+    addSamples <- data.frame(cell = NA, strata = NA, X = NA, Y = NA)
+    extraCols <- character(0)
 
     existing <- NULL
     include <- NULL
@@ -329,7 +332,31 @@ sample_strat <- function(sraster,
             stop("Insufficient candidate samples within the buffered access extent. Consider altering buffer widths.", call. = FALSE)
           }
         }
-        add_strata <- sample_srs(raster = strata_m, nSamp = n, mindist = mindist)
+        
+        #--- initiate number of sampled cells ---#
+        add_strata <- addSamples %>%
+          dplyr::filter(strata == s)
+
+        #--- ensure that sample units from previous strata are appended for distance checking ---#
+        if(!is.null(mindist)){
+          if(exists("out")){
+            
+            add_strata <- rbind(out, add_strata)
+            
+          }
+        }
+        
+        add_strata <- strat_rule2(
+          n = n,
+          s = s,
+          add_strata = add_strata,
+          nCount = 0,
+          strata_m = strata_m,
+          extraCols = extraCols,
+          mindist = mindist
+        ) %>%
+          dplyr::filter(strata == s)
+        
       }
     }
 
@@ -403,6 +430,15 @@ sample_strat <- function(sraster,
             add_strata$rule <- "existing"
           }
         }
+        
+        #--- ensure that sample units from previous strata are appended for distance checking ---#
+        if(!is.null(mindist)){
+          if(exists("out")){
+            
+            add_strata <- rbind(out, add_strata)
+            
+          }
+        }
 
         #--- Rule 1 sampling ---#
 
@@ -426,7 +462,9 @@ sample_strat <- function(sraster,
           strata_m = strata_m,
           extraCols = extraCols,
           mindist = mindist
-        )
+        ) %>%
+          dplyr::filter(strata == s)
+          
 
         #--- if number of samples is < 0 based on `include` parameter ---#
       } else if (n < 0) {
@@ -499,15 +537,19 @@ sample_strat <- function(sraster,
         sf::st_as_sf(., coords = c("X", "Y"), crs = crs)
     }
   } else {
-    if (method == "random") {
-      samples <- extract_strata(sraster = sraster, existing = out)
-    } else {
-      #--- convert coordinates to a spatial points object ---#
-      samples <- out %>%
-        dplyr::select(-cell) %>%
-        as.data.frame() %>%
-        sf::st_as_sf(., coords = c("X", "Y"), crs = crs)
+    #--- convert coordinates to a spatial points object ---#
+    samples <- out %>%
+      dplyr::select(-cell) %>%
+      as.data.frame() %>%
+      sf::st_as_sf(., coords = c("X", "Y"), crs = crs)
+    
+    if(method == "random"){
+      
+      samples <- samples %>%
+        dplyr::select(-rule)
+      
     }
+  
   }
 
   #--- plot the raster and samples if desired ---#
@@ -553,10 +595,9 @@ sample_strat <- function(sraster,
 
   if (exists("sraster_cats")) {
     #--- match label to value from categorical raster ---#
-    category <- match(samples$strata, sraster_cats$label)
+    
+    samples$category <- sraster_cats$label[match(samples$strata,sraster_cats$value)]
 
-    #--- add category to output samples ---#
-    samples$category <- category
   }
 
   #--- write outputs if desired ---#
