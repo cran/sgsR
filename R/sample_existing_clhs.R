@@ -9,6 +9,7 @@
 #' @return A subsampled SpatialPointsDataFrame object.
 #'
 #' @keywords internal
+
 sample_existing_clhs <- function(existing,
                                  nSamp,
                                  raster = NULL,

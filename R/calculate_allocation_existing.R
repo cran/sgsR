@@ -23,6 +23,7 @@
 #'
 #' @keywords internal
 
+
 calculate_allocation_existing <- function(existing,
                                           nSamp,
                                           allocation = "prop",

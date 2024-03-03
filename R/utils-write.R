@@ -12,6 +12,7 @@ NULL
 #' @rdname write
 #' @keywords internal
 
+
 write_samples <- function(samples, filename = NULL, overwrite = FALSE) {
   if (!is.null(filename)) {
     if (!is.character(filename)) {
@@ -35,6 +36,7 @@ write_samples <- function(samples, filename = NULL, overwrite = FALSE) {
 #' @family write
 #' @rdname write
 #' @keywords internal
+
 
 write_samples_df <- function(samples, filename = NULL, overwrite = FALSE) {
   if (!is.null(filename)) {
@@ -61,6 +63,7 @@ write_samples_df <- function(samples, filename = NULL, overwrite = FALSE) {
 #' @family write
 #' @rdname write
 #' @keywords internal
+
 
 write_raster <- function(raster, filename = NULL, overwrite = FALSE) {
   if (!is.null(filename)) {

@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -89,14 +89,14 @@ calculate_pcomp(
   details = TRUE
 ) # details about the principal component analysis appended
 
-## ---- warning = FALSE---------------------------------------------------------
+## ----warning = FALSE----------------------------------------------------------
 #--- determine sample size based on relative standard error (rse) of 1% ---#
 calculate_sampsize(
   mraster = mraster,
   rse = 0.01
 )
 
-## ---- warning = FALSE---------------------------------------------------------
+## ----warning = FALSE----------------------------------------------------------
 #--- change default threshold sequence values ---#
 #--- if increment and rse are not divisible the closest value will be taken ---#
 p <- calculate_sampsize(
@@ -130,7 +130,7 @@ calculate_allocation(
   existing = e.sr
 )
 
-## ---- warning=F,message=F-----------------------------------------------------
+## ----warning=F,message=F------------------------------------------------------
 calculate_allocation(
   sraster = sraster, # stratified raster
   nSamp = 200, # desired sample number

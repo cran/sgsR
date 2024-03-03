@@ -39,9 +39,9 @@ Determine a samples size for simple random sampling using relative standard erro
 Where:
 
 \itemize{
- \item{SE}{ - Standard error of the mean}
- \item{s}{ - Standard deviation of the observations}
- \item{n}{ - Number of observations}
+  \item \code{SE} - Standard error of the mean
+  \item \code{s} - Standard deviation of the observations
+  \item \code{n} - Number of observations
 }
 }
 \examples{
@@ -75,8 +75,8 @@ Sampling spatial units for agricultural surveys. pp 202-203. Berlin: Springer.
 }
 \seealso{
 Other calculate functions: 
-\code{\link{calculate_allocation_existing}()},
 \code{\link{calculate_allocation}()},
+\code{\link{calculate_allocation_existing}()},
 \code{\link{calculate_coobs}()},
 \code{\link{calculate_distance}()},
 \code{\link{calculate_pcomp}()},

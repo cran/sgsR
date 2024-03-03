@@ -1,6 +1,6 @@
 Package: sgsR
 Type: Package
-Version: 1.4.4
+Version: 1.4.5
 License: GPL (>= 3)
 Title: Structurally Guided Sampling
 Authors@R: c(
@@ -33,17 +33,19 @@ Depends: R (>= 3.5.0), methods
 Imports: dplyr, ggplot2, sf, terra, tidyr, clhs, SamplingBigData,
         BalancedSampling, spatstat.geom
 Suggests: knitr, rmarkdown, Rfast, testthat (>= 3.0.0), doParallel,
-        doSNOW, snow, foreach, entropy, roxygen2, covr, RANN
+        doSNOW, snow, foreach, entropy, roxygen2, covr, RANN, spelling
 VignetteBuilder: knitr
 Config/testthat/edition: 3
+Config/testthat/parallel: true
 Encoding: UTF-8
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
+Language: en-US
 NeedsCompilation: no
-Packaged: 2023-06-12 21:45:37 UTC; tgood
+Packaged: 2024-03-02 23:32:34 UTC; goodb
 Author: Tristan RH Goodbody [aut, cre, cph]
     (<https://orcid.org/0000-0002-6894-7925>),
   Nicholas C Coops [aut] (<https://orcid.org/0000-0002-0151-9037>),
   Martin Queinnec [aut] (<https://orcid.org/0000-0002-2741-1032>)
 Maintainer: Tristan RH Goodbody <goodbody.t@gmail.com>
 Repository: CRAN
-Date/Publication: 2023-06-13 07:00:02 UTC
+Date/Publication: 2024-03-03 15:10:02 UTC

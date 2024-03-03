@@ -11,6 +11,7 @@ NULL
 #' @rdname vectorize
 #' @keywords internal
 
+
 #--- strat_breaks() vectorization function ---#
 calculate_breaks <- function(mraster, breaks) {
   from <- NULL
@@ -33,6 +34,7 @@ calculate_breaks <- function(mraster, breaks) {
 #' @family vectorize
 #' @rdname vectorize
 #' @keywords internal
+
 
 calculate_quantile_breaks <- function(mraster, nStrata) {
   if (!is.numeric(nStrata)) {
@@ -73,6 +75,7 @@ calculate_quantile_breaks <- function(mraster, nStrata) {
 #' @rdname vectorize
 #' @keywords internal
 
+
 #--- strat_quantiles vectorization function ---#
 
 quantile_breaks_integer <- function(mraster, nStrata) {
@@ -83,6 +86,7 @@ quantile_breaks_integer <- function(mraster, nStrata) {
 #' @family vectorize
 #' @rdname vectorize
 #' @keywords internal
+
 
 quantile_breaks <- function(mraster, nStrata) {
   terra::quantile(mraster, probs = nStrata, na.rm = TRUE)

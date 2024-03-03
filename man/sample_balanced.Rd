@@ -55,9 +55,6 @@ Balanced raster sampling using \code{\link[BalancedSampling]{lcube}} and
 r <- system.file("extdata", "mraster.tif", package = "sgsR")
 mr <- terra::rast(r)
 
-a <- system.file("extdata", "access.shp", package = "sgsR")
-ac <- sf::st_read(a)
-
 sample_balanced(
   mraster = mr,
   nSamp = 200
@@ -65,10 +62,10 @@ sample_balanced(
 
 }
 \references{
-Anton Grafstrom and Jonathan Lisic (2019). BalancedSampling: Balanced and Spatially
+Anton Grafström and Jonathan Lisic (2019). BalancedSampling: Balanced and Spatially
 Balanced Sampling. R package version 1.5.5. https://CRAN.R-project.org/package=BalancedSampling
 
-Jonathan Lisic and Anton Grafstrom (2018). SamplingBigData: Sampling Methods for
+Jonathan Lisic and Anton Grafström (2018). SamplingBigData: Sampling Methods for
 Big Data. R package version 1.0.0. https://CRAN.R-project.org/package=SamplingBigData
 
 Grafström, A. Lisic, J (2018). BalancedSampling: Balanced and Spatially Balanced Sampling.
